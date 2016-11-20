@@ -1,11 +1,9 @@
 'use strict'
 
-// REQUIRE THE THINGS
 const db = require('./_db'),
 	  Sequelize = require('sequelize');
 
 
-// CREATE THE HUNTER SCHEMA
 const Hunter = db.define('hunter', {
 
 	name: {
@@ -61,5 +59,4 @@ const Hunter = db.define('hunter', {
 
 
 
-// EXPORT THE HUNTER MODEL
 module.exports = Hunter;

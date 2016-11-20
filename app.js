@@ -1,6 +1,5 @@
 'use strict'
 
-// REQUIRE ALL THE THINGS!
 const express = require('express'),
 	  app = express(),
 	  morgan = require('morgan'),
@@ -12,7 +11,6 @@ const express = require('express'),
 
 
 
-// BOILERPLATE MIDDLEWARE STUFF
 app.use(morgan('dev'));
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +21,6 @@ app.use('/files', express.static('/public/staticFiles'));
 
 
 
-// SYNCING OUR TABLES AND RUNNING THE SERVER
 Hunter.sync()
 .then(function() {
 	Team.sync();
@@ -36,13 +33,10 @@ Hunter.sync()
 
 
 
-// MOUNTING OUR ROUTER
 app.use('/', routes);
 
 
 
-
-// ASYNC ERROR
 app.get('/errEnd', function(request, response, next) {
 	Hunter.findOne()
 	.then(hunter => {
@@ -53,8 +47,6 @@ app.get('/errEnd', function(request, response, next) {
 
 
 
-
-// ERROR-MAKING FUNCTION
 function HTTPerror (status, message) {
 	const err = Error(message);
 	err.status = status;
@@ -63,8 +55,6 @@ function HTTPerror (status, message) {
 
 
 
-
-// ERROR HANDLER
 app.use(function(err, request, response, next) {
 	console.error(err);
 	response.status(err.status || 500).send(err.message || "I have failed -- knock on wood!");
